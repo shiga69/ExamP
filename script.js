@@ -8,8 +8,9 @@ form.addEventListener('submit', function (e) {
   const name = document.getElementById('full-name').value.trim();
   const email = document.getElementById('email').value.trim();
   const age = parseInt(document.getElementById('age').value.trim());
+  const hobbies = document.getElementById('hobbies').value.trim();
 
-  if (!name || !email || isNaN(age) || age <= 0 || !validateEmail(email)) {
+  if (!name || !email || !hobbies || isNaN(age) || age <= 0 || !validateEmail(email)) {
     msg.textContent = "Please enter valid data in all fields.";
     return;
   }
@@ -20,7 +21,7 @@ form.addEventListener('submit', function (e) {
   }
 
   msg.textContent = '';
-  addPersonToList({ name, email, age });
+  addPersonToList({ name, email, age, hobbies });
   form.reset();
 });
 
@@ -29,7 +30,13 @@ function validateEmail(email) {
 }
 
 function addPersonToList(person) {
-  const li = document.createElement('li');
-  li.textContent = `Full Name: ${person.name}, Email: ${person.email}, Age: ${person.age}`;
-  list.appendChild(li);
+  const container = document.createElement('div');
+  container.className = 'card';
+  container.innerHTML = `
+    <p><strong>Name:</strong> ${person.name}</p>
+    <p><strong>Email:</strong> ${person.email}</p>
+    <p><strong>Age:</strong> ${person.age}</p>
+    <p><strong>Hobbies:</strong> ${person.hobbies}</p>
+  `;
+  list.appendChild(container);
 }
